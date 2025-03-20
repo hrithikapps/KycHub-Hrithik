@@ -64,7 +64,7 @@ This is a **Product Comparison Dashboard** built using **React** and **Ant Desig
    npm start
    ```
 
-The app will be available at **http://localhost:3000/**.
+The app will be available at **http://localhost:5173/**.
 
 ## Deployment
 The project is deployed on **Netlify**.
