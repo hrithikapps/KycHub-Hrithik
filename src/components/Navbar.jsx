@@ -1,19 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { HomeOutlined, SwapOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
+  const location = useLocation();
+
   const items = [
     {
       label: <Link to="/">Home</Link>,
       icon: <HomeOutlined />,
-      key: "home",
+      key: "/",
     },
     {
       label: <Link to="/compare">Compare</Link>,
       icon: <SwapOutlined />,
-      key: "compare",
+      key: "/compare",
     },
   ];
 
@@ -31,6 +33,7 @@ const Navbar = () => {
       <Menu
         theme="dark"
         mode="horizontal"
+        selectedKeys={[location.pathname]}
         style={{ flex: 1, justifyContent: "flex-end" }}
         items={items}
       />
