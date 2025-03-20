@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Table, Button } from "antd";
+import { Modal, Table, Button, Tooltip } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCompare } from "../store";
 
@@ -23,28 +23,27 @@ const CompareModal = ({ open, onClose }) => {
           { title: "Title", dataIndex: "title", key: "title" },
           { title: "Price", dataIndex: "price", key: "price" },
           {
-            title: "Thumbnail",
-            dataIndex: "thumbnail",
-            key: "thumbnail",
-            render: (thumbnail) => (
-              <img
-                src={thumbnail}
-                alt="Product Thumbnail"
-                style={{ width: "50px", height: "50px", objectFit: "cover" }}
-              />
-            ),
-          },
-          {
             title: "Actions",
             key: "actions",
-            render: (_, record) => (
-              <Button
-                onClick={() => dispatch(addToCompare(record))}
-                disabled={compareList.some((p) => p.id === record.id)}
-              >
-                Add to Compare
-              </Button>
-            ),
+            render: (_, record) => {
+              const isAlreadyAdded = compareList.some(
+                (p) => p.id === record.id
+              );
+              const isMaxReached = compareList.length >= 4;
+
+              return (
+                <Tooltip
+                  title={isMaxReached ? "You can only compare 4 items" : ""}
+                >
+                  <Button
+                    onClick={() => dispatch(addToCompare(record))}
+                    disabled={isAlreadyAdded || isMaxReached}
+                  >
+                    Add to Compare
+                  </Button>
+                </Tooltip>
+              );
+            },
           },
         ]}
       />
