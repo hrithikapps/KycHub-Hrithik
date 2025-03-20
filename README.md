@@ -26,6 +26,14 @@ This is a **Product Comparison Dashboard** built using **React** and **Ant Desig
 - **Ant Design** (UI components)
 - **Axios** (API requests)
 
+# Landing Page
+
+![Screenshot 2025-03-20 222519](https://github.com/user-attachments/assets/557b2e7b-0754-410e-a136-db032eafe71f)
+
+# Compare products page
+
+![Screenshot 2025-03-20 222539](https://github.com/user-attachments/assets/ab73aa78-f4f7-404e-b215-4736457375da)
+
 ## API Used
 [DummyJSON Products API](https://dummyjson.com/products)
 
