@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Input, Select, Spin } from "antd";
+import { Table, Button, Input, Select, Spin, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addToCompare, setProducts } from "../store";
@@ -79,17 +79,30 @@ const ProductDetails = () => {
     {
       title: "Compare",
       key: "compare",
-      render: (_, record) => (
-        <Button
-          onClick={() => dispatch(addToCompare(record))}
-          disabled={
-            compareList.some((p) => p.id === record.id) ||
-            compareList.length >= 4
-          }
-        >
-          Compare
-        </Button>
-      ),
+      render: (_, record) => {
+        const isAlreadyAdded = compareList.some((p) => p.id === record.id);
+        const isMaxReached = compareList.length >= 4;
+        const isDisabled = isAlreadyAdded || isMaxReached;
+
+        return (
+          <Tooltip
+            title={
+              isMaxReached
+                ? "Maximum 4 products can be compared"
+                : isAlreadyAdded
+                ? "Product already added"
+                : ""
+            }
+          >
+            <Button
+              onClick={() => dispatch(addToCompare(record))}
+              disabled={isDisabled}
+            >
+              Compare
+            </Button>
+          </Tooltip>
+        );
+      },
     },
   ];
 
@@ -135,7 +148,7 @@ const ProductDetails = () => {
           dataSource={filteredProducts}
           columns={columns}
           rowKey="id"
-          pagination={{ pageSize: 6 }}
+          pagination={{ pageSize: 5 }}
         />
       )}
     </div>
